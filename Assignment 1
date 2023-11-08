@@ -1,0 +1,77 @@
+const int lm35Pin = A0; 
+
+const int ledPin = 13;       // Onboard LED on digital pin 13 
+
+const int shortDuration = 250; 
+
+const int longDuration = 500; 
+
+boolean ledState = LOW; 
+
+int count = 0; 
+
+void setup() { 
+
+ pinMode(ledPin, OUTPUT); // Set the LED pin as an output 
+
+ Serial.begin(9600); // serial communication for debugging 
+
+} 
+
+void loop() { 
+
+ int temperature = analogRead(lm35Pin); 
+
+ temperature = (temperature * 500) / 1023; // Convert the analog reading to Celsius 
+
+ if (temperature > 30) { 
+
+ if (count < 2) { 
+
+ for (int i = 0; i < longDuration; i++) { 
+
+ digitalWrite(ledPin, ledState); 
+
+ } 
+
+ ledState = !ledState; 
+
+ count++; 
+
+ } else { 
+
+ count = 0; // Reset the count 
+
+ } 
+
+ } else { 
+
+ if (count < 2) { 
+
+ for (int i = 0; i < shortDuration; i++) { 
+
+ digitalWrite(ledPin, ledState); 
+
+ } 
+
+ ledState = !ledState; 
+
+ count++; 
+
+ } else { 
+
+ count = 0; 
+
+ } 
+
+ } 
+
+ // Print the temperature 
+
+ Serial.print("Temperature: "); 
+
+ Serial.print(temperature); 
+
+ Serial.println("°C"); 
+
+}
