@@ -75,3 +75,11 @@ void loop() {
  Serial.println("°C"); 
 
 }
+
+Here's a summary of how your code works:
+
+It reads the LM35 temperature sensor on analog pin A0.
+It converts the analog reading to temperature in Celsius.
+If the temperature is above 30°C, it blinks the LED for a long duration (500ms), and if it's below 30°C, it blinks the LED for a short duration (250ms).
+The code uses a non-blocking approach with for loops and a count variable to control the timing of LED blinking.
+It also prints the current temperature to the serial monitor.
